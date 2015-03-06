@@ -14,13 +14,20 @@ def main(argv):
     :type argv: :class:`list`
     """
 
-    print(metadata.license)
-    print(metadata.copyright)
+    parser = argparse.ArgumentParser(description='Clear profanity from the text.')
+
+    parser.add_argument('corpus',
+                        action='store',
+                        type=argparse.FileType('r'),
+                        nargs=1,
+                        help='Corpus file')
+
+    args = parser.parse_args(argv)
 
 
 def entry_point():
     """Zero-argument entry point for use with setuptools/distribute."""
-    raise SystemExit(main(sys.argv))
+    raise SystemExit(main(sys.argv[1:]))
 
 
 if __name__ == '__main__':

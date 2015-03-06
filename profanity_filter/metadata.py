@@ -7,7 +7,7 @@ Information describing the project.
 # Distributed under the terms of the MIT License.
 
 
-package = 'filter'
+package = 'profanity_filter'
 project = "profanity-filter"
 project_no_spaces = project.replace(' ', '')
 version = '0.1'

@@ -1,3 +1,7 @@
+# Copyright (c) Timur Iskhakov.
+# Distributed under the terms of the MIT License.
+
+
 from filter import metadata
 
 __version__ = metadata.version

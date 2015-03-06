@@ -3,6 +3,10 @@ Project metadata
 Information describing the project.
 """
 
+# Copyright (c) Timur Iskhakov.
+# Distributed under the terms of the MIT License.
+
+
 package = 'filter'
 project = "profanity-filter"
 project_no_spaces = project.replace(' ', '')

@@ -4,6 +4,9 @@ Dictionary of strings
 Use to find word occurrence in sentence
 """
 
+# Copyright (c) Timur Iskhakov.
+# Distributed under the terms of the MIT License.
+
 
 class StringDict:
     class TrieNode:

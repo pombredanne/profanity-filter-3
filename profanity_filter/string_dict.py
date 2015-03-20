@@ -44,13 +44,13 @@ class StringDict:
                 while suffix is not None and key not in suffix.links:
                     suffix = suffix.suffix_link
                 node.suffix_link = suffix.links[key] if suffix else self.root
-                # node.term += node.fail.out
 
     def check_occurrence(self, sentence):
-        """
+        """Find out an occurrence of a word from the sentence in the dictionary
+
         :param sentence: sentence to find occurrences
         :return: True if a word or a collocation in the sentence
-        occurrences in the dictionary
+                 occurrences in the dictionary
         """
 
         node = self.root

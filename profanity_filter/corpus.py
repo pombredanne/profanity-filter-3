@@ -16,7 +16,6 @@ class Corpus:
         :param input_file_path: Corpus file path
         :param output_file_path: Output file path
         :param string_dict: Profanity dictionary
-        :return:
         """
 
         self.input_file_path = input_file_path
@@ -57,9 +56,7 @@ class Corpus:
             line = input_stream.get_next_line()
 
     def proceed(self):
-        """
-        Find out profanity sentences
-        """
+        """Find out profanity sentences"""
 
         self.__proceed_xml(InputFileStream(self.input_file_path),
                            OutputFileStream(self.output_file_path))

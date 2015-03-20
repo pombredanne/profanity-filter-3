@@ -15,6 +15,6 @@ description = 'Cleaning the text of profanity'
 authors = ['Timur Iskhakov']
 authors_string = ', '.join(authors)
 emails = ['iskhakovt@gmail.com']
-license = '???'
+license = 'MIT'
 copyright = '2015 ' + authors_string
 url = 'https://github.com/cs-hse-projects/profanity-filter/'

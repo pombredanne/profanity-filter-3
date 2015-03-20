@@ -10,9 +10,7 @@ Use for big files
 
 
 class InputFileStream:
-    """
-    File input stream storing one line at the same time
-    """
+    """File input stream storing one line at the same time"""
 
     def __init__(self, file_path):
         try:
@@ -32,9 +30,7 @@ class InputFileStream:
 
 
 class OutputFileStream:
-    """
-    File output stream
-
+    """File output stream
     File class shell to enhance readability
     """
 

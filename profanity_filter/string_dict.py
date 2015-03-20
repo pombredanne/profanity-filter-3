@@ -67,3 +67,11 @@ class StringDict:
                 return True
 
         return False
+
+
+def dict_from_file(path):
+    file = open(path, 'r')
+    str_dict = StringDict(list(map(str.rstrip, file.readlines())))
+    file.close()
+
+    return str_dict

@@ -46,7 +46,7 @@ class RawText:
                 words.append(self.__normalize(curr_word))
                 curr_word = ''
 
-        return not self.dict.check_occurrence(''.join(words))
+        return not self.dict.check_occurrence(words)
 
     def __get_stop_pos(self, part):
         pos = (-1, 0)

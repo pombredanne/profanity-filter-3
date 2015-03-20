@@ -18,7 +18,8 @@ class StringDict:
     def __init__(self, patterns):
         self.root = StringDict.TrieNode()
 
-        for pattern in patterns:
+        for __pattern in patterns:
+            pattern = ' ' + __pattern + ' '
             self.__add_pattern(pattern)
 
         self.__proceed_aho_corasick()
@@ -45,7 +46,7 @@ class StringDict:
                     suffix = suffix.suffix_link
                 node.suffix_link = suffix.links[key] if suffix else self.root
 
-    def check_occurrence(self, sentence):
+    def check_occurrence(self, words):
         """Find out an occurrence of a word from the sentence in the dictionary
 
         :param sentence: sentence to find occurrences
@@ -54,7 +55,7 @@ class StringDict:
         """
 
         node = self.root
-        sentence = sentence.replace(' ', '')
+        sentence = ' ' + ' '.join(words) + ' '
 
         for symbol in sentence:
             while node is not None and symbol not in node.links:

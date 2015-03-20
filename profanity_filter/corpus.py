@@ -35,7 +35,7 @@ class Corpus:
             lines.append(line)
             line = input_stream.get_next_line()
 
-        return self.dict.check_occurrence(''.join(words)), lines
+        return self.dict.check_occurrence(words), lines
 
     def __proceed_xml(self, input_stream, output_stream):
         line = input_stream.get_next_line()

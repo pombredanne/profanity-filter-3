@@ -40,11 +40,11 @@ class StringDict:
 
             for key, node in current_node.links.iteritems():
                 queue.append(node)
-                fail_node = current_node.fail
-                while fail_node is not None and key not in fail_node.goto:
-                    fail_node = fail_node.fail
-                node.fail = fail_node.goto[key] if fail_node else self.root
-                node.out += node.fail.out
+                suffix = current_node.suffix_link
+                while suffix is not None and key not in suffix.links:
+                    suffix = suffix.suffix_link
+                node.suffix_link = suffix.links[key] if suffix else self.root
+                # node.term += node.fail.out
 
     def check_occurrence(self, sentence):
         """

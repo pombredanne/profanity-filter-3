@@ -5,7 +5,6 @@
 import argparse
 import sys
 
-from profanity_filter import metadata
 
 def main(argv):
     """Program entry point.

@@ -1,5 +1,5 @@
 """
-Dictionary of strings
+Set of strings
 
 Use to find word occurrence in sentence
 """
@@ -8,7 +8,7 @@ Use to find word occurrence in sentence
 # Distributed under the terms of the MIT License.
 
 
-class StringDict:
+class StrSet:
     class TrieNode:
         def __init__(self):
             self.links = {}
@@ -16,7 +16,7 @@ class StringDict:
             self.suffix_link = None
 
     def __init__(self, patterns):
-        self.root = StringDict.TrieNode()
+        self.root = StrSet.TrieNode()
 
         for __pattern in patterns:
             pattern = ' ' + __pattern + ' '
@@ -27,7 +27,7 @@ class StringDict:
     def __add_pattern(self, pattern):
         node = self.root
         for symbol in pattern:
-            node = node.links.setdefault(symbol, StringDict.TrieNode())
+            node = node.links.setdefault(symbol, StrSet.TrieNode())
         node.term = True
 
     def __proceed_aho_corasick(self):
@@ -70,9 +70,9 @@ class StringDict:
         return False
 
 
-def dict_from_file(path):
+def set_from_file(path):
     file = open(path, 'r')
-    str_dict = StringDict(list(map(str.rstrip, file.readlines())))
+    str_set = StrSet(list(map(str.rstrip, file.readlines())))
     file.close()
 
-    return str_dict
+    return str_set

@@ -6,9 +6,6 @@ import argparse
 import sys
 
 
-from profanity_filter.string_dict import dict_from_file
-from profanity_filter.raw_text import RawText
-
 def main(argv):
     """Program entry point.
 

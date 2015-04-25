@@ -7,7 +7,7 @@ Raw text
 # Distributed under the terms of the MIT License.
 
 
-from profanity_filter.file_streams import InputFileStream, OutputFileStream
+from .file_streams import InputFileStream, OutputFileStream
 
 import pymorphy2
 

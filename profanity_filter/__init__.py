@@ -2,7 +2,7 @@
 # Distributed under the terms of the MIT License.
 
 
-from profanity_filter import metadata
+from . import metadata
 
 __version__ = metadata.version
 __author__ = metadata.authors_string

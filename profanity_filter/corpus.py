@@ -7,7 +7,7 @@ Corpus of texts
 # Distributed under the terms of the MIT License.
 
 
-from profanity_filter.file_streams import InputFileStream, OutputFileStream
+from .file_streams import InputFileStream, OutputFileStream
 
 
 class Corpus:

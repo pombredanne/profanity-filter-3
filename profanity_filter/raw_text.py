@@ -13,22 +13,26 @@ import pymorphy2
 
 
 class RawText:
-    def __init__(self, input_file_path, output_file_path, string_dict):
+    def __init__(self, input_file_path, output_file_path, stop_set):
         """
         :param input_file_path: Text file path
         :param output_file_path: Output file path
-        :param string_dict: Profanity dictionary
+        :param stop_set: Profanity dictionary
         """
 
         self.input_file_path = input_file_path
         self.output_file_path = output_file_path
-        self.dict = string_dict
+        self.stop_set = stop_set
 
         self.alphabet = ('а', )
         self.morph = pymorphy2.MorphAnalyzer()
-        self.stops = ('...', '!..', '?..', '!', '?', '.')
+        self.stops = ('...', '…', '!..', '?..', '?!', '!', '?', '.')
 
     def __normalize(self, token):
+        # Yeah, this is fun
+        if token[:4] == 'пидо':
+            return 'пидор'
+
         try:
             gram_info = self.morph.parse(token)
             return gram_info[0].normal_form
@@ -46,7 +50,7 @@ class RawText:
                 words.append(self.__normalize(curr_word))
                 curr_word = ''
 
-        return not self.dict.check_occurrence(words)
+        return not self.stop_set.check_occurrence(words)
 
     def __get_stop_pos(self, part):
         pos = (-1, 0)
@@ -60,8 +64,14 @@ class RawText:
     def __proceed_part(self, part, output_stream):
         stop_pos = self.__get_stop_pos(part)
         while stop_pos != -1:
-            if self.__proceed_sentence(part[:stop_pos]):
-                output_stream.write(part[:stop_pos])
+            start_pos = 0
+            while not part[start_pos].isalpha():
+                start_pos += 1
+            output_stream.write(part[:start_pos])
+
+            if self.__proceed_sentence(part[start_pos:stop_pos]):
+                output_stream.write(part[start_pos:stop_pos])
+
             part = part[stop_pos:]
             stop_pos = self.__get_stop_pos(part)
 

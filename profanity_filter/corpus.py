@@ -11,31 +11,29 @@ from .file_streams import InputFileStream, OutputFileStream
 
 
 class Corpus:
-    def __init__(self, input_file_path, output_file_path, string_dict):
+    def __init__(self, input_file_path, output_file_path, stop_set):
         """
         :param input_file_path: Corpus file path
         :param output_file_path: Output file path
-        :param string_dict: Profanity dictionary
+        :param stop_set: Profanity dictionary
         """
 
         self.input_file_path = input_file_path
         self.output_file_path = output_file_path
-        self.dict = string_dict
+        self.stop_set = stop_set
 
     def __proceed_sentence(self, input_stream):
         line = input_stream.get_next_line()
         lines, words = [], []
 
-        while line[0] != '<':
-            words.append(line.rstrip().split()[-1].split('-')[0])
-            lines.append(line)
-            line = input_stream.get_next_line()
-
         while line != '</s>\n':
+            if line[0] != '<':
+                # Fix me
+                words.append(line.rstrip().split()[-1].split('-')[0])
             lines.append(line)
             line = input_stream.get_next_line()
 
-        return self.dict.check_occurrence(words), lines
+        return self.stop_set.check_occurrence(words), lines
 
     def __proceed_xml(self, input_stream, output_stream):
         line = input_stream.get_next_line()

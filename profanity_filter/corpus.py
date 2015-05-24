@@ -54,7 +54,7 @@ class Corpus:
             line = input_stream.get_next_line()
 
     def proceed(self):
-        """Find out profanity sentences"""
+        """Find out profanity sentences."""
 
         self.__proceed_xml(InputFileStream(self.input_file_path),
                            OutputFileStream(self.output_file_path))

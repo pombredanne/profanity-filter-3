@@ -47,7 +47,7 @@ class StrSet:
                 node.suffix_link = suffix.links[key] if suffix else self.root
 
     def check_occurrence(self, words):
-        """Find out an occurrence of a word from the sentence in the dictionary
+        """Find out an occurrence of a word from the sentence in the dictionary.
 
         :param words: sentence to find occurrences
         :return: True if a word or a collocation in the sentence

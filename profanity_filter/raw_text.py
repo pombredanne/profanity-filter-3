@@ -30,7 +30,7 @@ class RawText:
 
     @staticmethod
     def __levenshtein_distance(a, b):
-        """Calculates the Levenshtein distance
+        """Calculates the Levenshtein distance.
 
         :param a: :class:`str` first string
         :param b: :class:`str` second string
@@ -113,7 +113,7 @@ class RawText:
         self.__proceed_part(collected_line, output_stream)
 
     def proceed(self):
-        """Copy text without profanity sentences"""
+        """Copy text without profanity sentences."""
 
         self.__proceed_text(InputFileStream(self.input_file_path),
                             OutputFileStream(self.output_file_path))

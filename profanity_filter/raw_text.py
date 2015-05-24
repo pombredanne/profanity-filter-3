@@ -26,7 +26,7 @@ class RawText:
 
         self.alphabet = ('а', )
         self.morph = pymorphy2.MorphAnalyzer()
-        self.stops = ('.', '!', '?' '…')
+        self.stops = ('.', '!', '?', '…')
 
     @staticmethod
     def __levenshtein_distance(a, b):

@@ -26,7 +26,7 @@ class RawText:
 
         self.alphabet = ('а', )
         self.morph = pymorphy2.MorphAnalyzer()
-        self.stops = ('...', '…', '!..', '?..', '?!', '!', '?', '.')
+        self.stops = ('.', '!', '?' '…')
 
     @staticmethod
     def __levenshtein_distance(a, b):
@@ -78,13 +78,13 @@ class RawText:
         return not self.stop_set.check_occurrence(words)
 
     def __get_stop_pos(self, part):
-        pos = (-1, 0)
-
-        for stop in self.stops:
-            curr_pos = part.find(stop)
-            if curr_pos != -1 and (pos[0] == -1 or pos[0] > curr_pos):
-                pos = (curr_pos, len(stop))
-        return pos[0] + pos[1]
+        pos = -1
+        for ind, ch in enumerate(part):
+            if ch in self.stops:
+                pos = ind + 1
+            elif pos != -1:
+                return pos
+        return pos
 
     def __proceed_part(self, part, output_stream):
         stop_pos = self.__get_stop_pos(part)

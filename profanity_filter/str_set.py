@@ -49,7 +49,7 @@ class StrSet:
     def check_occurrence(self, words):
         """Find out an occurrence of a word from the sentence in the dictionary
 
-        :param sentence: sentence to find occurrences
+        :param words: sentence to find occurrences
         :return: True if a word or a collocation in the sentence
                  occurrences in the dictionary
         """

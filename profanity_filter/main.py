@@ -6,7 +6,7 @@ import argparse
 import os.path
 import sys
 
-from str_set import set_from_file
+from str_set import StrSet
 from corpus import Corpus
 from raw_text import RawText
 
@@ -35,10 +35,14 @@ def main(argv):
                         choices=['corpus', 'text'],
                         nargs='?',
                         help='Input file type (vert is corpus by default)')
+    parser.add_argument('--stoplist',
+                        default='resources/stoplist.txt',
+                        type=argparse.FileType('r'),
+                        nargs='?',
+                        help='Custom stoplist file')
 
     args = parser.parse_args(argv)
-
-    stop_set = set_from_file('resources/stoplist.txt')
+    stop_set = StrSet(map(str.rstrip, args.stoplist.readlines()))
 
     if (__file_extension(args.input[0].name) == 'vert' and args.type != 'text') or args.type == 'corpus':
         Corpus(args.input[0], args.output[0], stop_set).proceed()

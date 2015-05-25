@@ -41,7 +41,7 @@ def main(argv):
                         help='Custom stoplist file')
 
     args = parser.parse_args(argv)
-    stop_set = StrSet(map(str.rstrip, args.stoplist.readlines()))
+    stop_set = StrSet(args.stoplist.read())
 
     if (__file_extension(args.input[0].name) == 'vert' and args.type != 'text') or args.type == 'corpus':
         Corpus(args.input[0], args.output[0], stop_set).proceed()

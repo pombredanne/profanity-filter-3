@@ -7,6 +7,8 @@ Use to find word occurrence in sentence
 # Copyright (c) Timur Iskhakov.
 # Distributed under the terms of the MIT License.
 
+import re
+
 
 class StrSet:
     class TrieNode:
@@ -15,10 +17,17 @@ class StrSet:
             self.term = False
             self.suffix_link = None
 
-    def __init__(self, patterns):
+    def __init__(self, words_str):
+        """
+        :param words_str: :class:`str` string containing stopwords
+        """
         self.root = StrSet.TrieNode()
+        self.list = []
+
+        patterns = re.sub("[^\w|-]", " ",  words_str).split()
 
         for __pattern in patterns:
+            self.list.append(__pattern)
             pattern = ' ' + __pattern + ' '
             self.__add_pattern(pattern)
 
@@ -32,14 +41,15 @@ class StrSet:
 
     def __proceed_aho_corasick(self):
         queue = []
+
         for node in self.root.links.items():
             queue.append(node[1])
             node[1].suffix_link = self.root
 
-        while not queue:
+        while queue:
             current_node = queue.pop(0)
 
-            for key, node in current_node.links.iteritems():
+            for key, node in current_node.links.items():
                 queue.append(node)
                 suffix = current_node.suffix_link
                 while suffix is not None and key not in suffix.links:
@@ -68,3 +78,6 @@ class StrSet:
                 return True
 
         return False
+
+    def empty(self):
+        return not len(self.list)

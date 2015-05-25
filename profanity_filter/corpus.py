@@ -59,4 +59,7 @@ class Corpus:
     def proceed(self):
         """Find out profanity sentences."""
 
+        if self.stop_set.empty():
+            print('Stopset is empty!')
+
         self.__proceed_xml(self.input_stream, self.output_stream)

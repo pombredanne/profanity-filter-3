@@ -38,7 +38,6 @@ def main(argv):
     parser.add_argument('--stoplist',
                         default='resources/stoplist.txt',
                         type=argparse.FileType('r'),
-                        nargs='?',
                         help='Custom stoplist file')
 
     args = parser.parse_args(argv)

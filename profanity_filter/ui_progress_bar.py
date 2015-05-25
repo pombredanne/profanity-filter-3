@@ -10,7 +10,7 @@ import progressbar
 
 
 class UIProgressBar:
-    __widgets = [' ', progressbar.Percentage(), ' ', progressbar.Bar(), ' ', progressbar.AdaptiveETA()]
+    __widgets = [' ', progressbar.Percentage(), ' ', progressbar.Bar(), ' ', progressbar.ETA()]
 
     def __init__(self, message, max_value):
         """

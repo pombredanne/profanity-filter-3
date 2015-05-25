@@ -19,7 +19,8 @@ class Corpus:
         self.output_stream = output_stream
         self.stop_set = stop_set
 
-    def __proceed_word(self, word):
+    @staticmethod
+    def __proceed_word(word):
         for part in reversed(word.split()):
             hyphen_pos = part.find('-')
             if hyphen_pos != -1:

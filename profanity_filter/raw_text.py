@@ -7,8 +7,6 @@ Raw text
 # Distributed under the terms of the MIT License.
 
 
-from .file_streams import InputFileStream, OutputFileStream
-
 import pymorphy2
 
 
@@ -104,16 +102,16 @@ class RawText:
 
     def __proceed_text(self, input_stream, output_stream):
         collected_line = ''
-        line = input_stream.get_next_line()
+        line = input_stream.readline()
 
         while line:
             collected_line = self.__proceed_part(collected_line, output_stream)
-            line = input_stream.get_next_line()
+            line = input_stream.readline()
             collected_line += line
         self.__proceed_part(collected_line, output_stream)
 
     def proceed(self):
         """Copy text without profanity sentences."""
 
-        self.__proceed_text(InputFileStream(self.input_file_path),
-                            OutputFileStream(self.output_file_path))
+        self.__proceed_text(open(self.input_file_path, 'r'),
+                            open(self.output_file_path, 'w'))

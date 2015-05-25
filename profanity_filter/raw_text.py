@@ -11,16 +11,18 @@ import pymorphy2
 
 
 class RawText:
-    def __init__(self, input_stream, output_stream, stop_set):
+    def __init__(self, input_stream, output_stream, stop_set, progress_bar):
         """
         :param input_stream: Text stream
         :param output_stream: Output stream
         :param stop_set: Profanity dictionary
+        :param progress_bar: :class:`UIProgressBar` Progress bar
         """
 
         self.input_stream = input_stream
         self.output_stream = output_stream
         self.stop_set = stop_set
+        self.progress_bar = progress_bar
 
         self.alphabet = ('а', )
         self.morph = pymorphy2.MorphAnalyzer()
@@ -106,6 +108,7 @@ class RawText:
 
         while line:
             collected_line = self.__proceed_part(collected_line, output_stream)
+            self.progress_bar.step()
             line = input_stream.readline()
             collected_line += line
         self.__proceed_part(collected_line, output_stream)

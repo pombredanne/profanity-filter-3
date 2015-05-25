@@ -6,6 +6,8 @@ import argparse
 import os.path
 import sys
 
+
+from ui_progress_bar import UIProgressBar
 from str_set import StrSet
 from corpus import Corpus
 from raw_text import RawText
@@ -13,6 +15,19 @@ from raw_text import RawText
 
 def __file_extension(filename):
     return os.path.splitext(filename)[1][1:]
+
+
+def __count_lines(file):
+    lines = 0
+    buf_size = 1024 * 1024
+    read_f = file.read
+
+    buf = read_f(buf_size)
+    while buf:
+        lines += buf.count('\n')
+        buf = read_f(buf_size)
+    file.seek(0)
+    return lines
 
 
 def main(argv):
@@ -41,12 +56,16 @@ def main(argv):
                         help='Custom stoplist file')
 
     args = parser.parse_args(argv)
-    stop_set = StrSet(args.stoplist.read())
 
-    if (__file_extension(args.input[0].name) == 'vert' and args.type != 'text') or args.type == 'corpus':
-        Corpus(args.input[0], args.output[0], stop_set).proceed()
-    else:
-        RawText(args.input[0], args.output[0], stop_set).proceed()
+    print('Preparing...', end='\r')
+
+    stop_set = StrSet(args.stoplist.read())
+    run_corpus = (__file_extension(args.input[0].name) == 'vert' and args.type != 'text') or args.type == 'corpus'
+    progress_bar = UIProgressBar('Corpus' if run_corpus else 'Text', __count_lines(args.input[0]))
+
+    progress_bar.start()
+    (Corpus if run_corpus else RawText)(args.input[0], args.output[0], stop_set, progress_bar).proceed()
+    progress_bar.finish()
 
 
 def entry_point():

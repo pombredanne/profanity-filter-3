@@ -11,15 +11,15 @@ import pymorphy2
 
 
 class RawText:
-    def __init__(self, input_file_path, output_file_path, stop_set):
+    def __init__(self, input_stream, output_stream, stop_set):
         """
-        :param input_file_path: Text file path
-        :param output_file_path: Output file path
+        :param input_stream: Text stream
+        :param output_stream: Output stream
         :param stop_set: Profanity dictionary
         """
 
-        self.input_file_path = input_file_path
-        self.output_file_path = output_file_path
+        self.input_stream = input_stream
+        self.output_stream = output_stream
         self.stop_set = stop_set
 
         self.alphabet = ('а', )
@@ -113,5 +113,4 @@ class RawText:
     def proceed(self):
         """Copy text without profanity sentences."""
 
-        self.__proceed_text(open(self.input_file_path, 'r'),
-                            open(self.output_file_path, 'w'))
+        self.__proceed_text(self.input_stream, self.output_stream)

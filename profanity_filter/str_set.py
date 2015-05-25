@@ -72,7 +72,7 @@ class StrSet:
 
 def set_from_file(path):
     file = open(path, 'r')
-    str_set = StrSet(list(map(str.rstrip, file.readlines())))
+    str_set = StrSet(map(str.rstrip, file.readlines()))
     file.close()
 
     return str_set

@@ -89,7 +89,7 @@ class RawText:
         stop_pos = self.__get_stop_pos(part)
         while stop_pos != -1:
             start_pos = 0
-            while not part[start_pos].isalpha():
+            while part[start_pos] in ' \t':
                 start_pos += 1
             output_stream.write(part[:start_pos])
 

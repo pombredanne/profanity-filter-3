@@ -27,7 +27,7 @@ def __count_lines(file):
         lines += buf.count('\n')
         buf = read_f(buf_size)
     file.seek(0)
-    return lines
+    return lines + 1
 
 
 def main(argv):

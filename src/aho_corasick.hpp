@@ -13,13 +13,12 @@
 class AhoCorasick {
     struct TrieNode {
         std::map<char const, TrieNode *> links;
-        TrieNode *fail;//, *term;
+        TrieNode *fail;
         bool term;
 
     public:
         TrieNode(TrieNode *fail_node = nullptr) :
                 fail(fail_node),
-                //term(nullptr),
                 term(false)
         { }
 

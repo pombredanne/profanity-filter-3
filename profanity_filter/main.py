@@ -59,8 +59,8 @@ def main(argv):
 
     print('Preparing...', end='\r')
 
-    stop_set = StrSet(args.stoplist.read())
     run_corpus = (__file_extension(args.input[0].name) == 'vert' and args.type != 'text') or args.type == 'corpus'
+    stop_set = StrSet(args.stoplist.read(), not run_corpus)
     progress_bar = UIProgressBar('Corpus' if run_corpus else 'Text', __count_lines(args.input[0]))
 
     progress_bar.start()

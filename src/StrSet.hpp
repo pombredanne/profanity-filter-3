@@ -5,9 +5,11 @@
 #ifndef STRSET_HPP
 #define STRSET_HPP
 
+#include <boost/python.hpp>
 #include "AhoCorasick.hpp"
 #include "SuffixTree.hpp"
 
+#include <list>
 #include <regex>
 #include <string>
 #include <vector>
@@ -22,7 +24,11 @@ class StrSet {
 
 public:
     StrSet(std::string const &, bool);
-    bool check_occurrence(std::vector<std::string> const &) const;
+    bool check_occurrence(boost::python::list const &) const;
+
+    bool empty() const {
+        return suffix_trees_.empty();
+    }
 };
 
 #endif //STRSET_HPP

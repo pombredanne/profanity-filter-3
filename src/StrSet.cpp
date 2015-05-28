@@ -21,7 +21,14 @@ StrSet::StrSet(std::string const &get_str, bool complex_analysis) : complex_(com
     trie_ = AhoCorasick(words);
 }
 
-bool StrSet::check_occurrence(std::vector<std::string> const &words) const {
+bool StrSet::check_occurrence(boost::python::list const &get_words) const {
+    boost::python::ssize_t len = boost::python::len(get_words);
+    std::vector<std::string> words(len);
+
+    for (boost::python::ssize_t i = 0; i != len; ++i) {
+        words[i] = boost::python::extract<std::string>(get_words[i]);
+    }
+
     std::string all_words = " ";
     for (auto const &word : words) {
         all_words += word + " ";

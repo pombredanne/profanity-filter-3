@@ -24,6 +24,7 @@ setup(
         libraries=['boost_python3'],
         extra_compile_args=["-std=c++11"]
     )],
+    include_package_data=True,
     packages=[metadata.package],
     entry_points={
         'console_scripts': [metadata.project + '=' + metadata.package + '.main:entry_point'],

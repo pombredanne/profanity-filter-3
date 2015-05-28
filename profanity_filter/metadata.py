@@ -9,7 +9,6 @@ Information describing the project.
 
 package = 'profanity_filter'
 project = "profanity-filter"
-project_no_spaces = project.replace(' ', '')
 version = '0.1'
 description = 'Cleaning the text of profanity'
 authors = ['Timur Iskhakov']

@@ -7,10 +7,10 @@ import os.path
 import sys
 
 
-from ui_progress_bar import UIProgressBar
-from str_set import StrSet
-from corpus import Corpus
-from raw_text import RawText
+from profanity_filter.ui_progress_bar import UIProgressBar
+from profanity_filter.str_set import StrSet
+from profanity_filter.corpus import Corpus
+from profanity_filter.raw_text import RawText
 
 
 def __file_extension(filename):

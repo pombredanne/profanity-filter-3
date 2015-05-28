@@ -23,7 +23,6 @@ class RawText:
         self.stop_set = stop_set
         self.progress_bar = progress_bar
 
-        self.alphabet = ('а', )
         self.morph = pymorphy2.MorphAnalyzer()
         self.stops = ('.', '!', '?', '…')
 

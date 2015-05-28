@@ -9,7 +9,6 @@
 #include "AhoCorasick.hpp"
 #include "SuffixTree.hpp"
 
-#include <list>
 #include <regex>
 #include <string>
 #include <vector>

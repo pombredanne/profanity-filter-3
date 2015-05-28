@@ -20,7 +20,7 @@ setup(
     url=metadata.url,
     ext_modules=[Extension(
         metadata.package + '.str_set',
-        ['src/package.cpp', 'src/AhoCorasick.cpp', 'src/SuffixTree.cpp', 'src/StrSet.cpp'],
+        ['src/package.cpp', 'src/aho_corasick.cpp', 'src/suffix_tree.cpp', 'src/str_set.cpp'],
         libraries=['boost_python3'],
         extra_compile_args=["-std=c++11"]
     )],

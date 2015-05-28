@@ -2,8 +2,8 @@
 // Distributed under the terms of the MIT License.
 
 
-#ifndef SUFFIXTREE_HPP
-#define SUFFIXTREE_HPP
+#ifndef SUFFIX_TREE_HPP
+#define SUFFIX_TREE_HPP
 
 #include <string>
 
@@ -16,4 +16,4 @@ public:
 };
 
 
-#endif //SUFFIXTREE_HPP
+#endif //SUFFIX_TREE_HPP

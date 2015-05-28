@@ -2,7 +2,7 @@
 // Distributed under the terms of the MIT License.
 
 
-#include "SuffixTree.hpp"
+#include "suffix_tree.hpp"
 
 
 SuffixTree::SuffixTree(std::string const &str) {

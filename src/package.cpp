@@ -3,7 +3,7 @@
 
 
 #include <boost/python.hpp>
-#include "StrSet.hpp"
+#include "str_set.hpp"
 
 
 BOOST_PYTHON_MODULE(str_set) {

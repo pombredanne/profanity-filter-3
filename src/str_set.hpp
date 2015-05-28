@@ -2,12 +2,12 @@
 // Distributed under the terms of the MIT License.
 
 
-#ifndef STRSET_HPP
-#define STRSET_HPP
+#ifndef STR_SET_HPP
+#define STR_SET_HPP
 
 #include <boost/python.hpp>
-#include "AhoCorasick.hpp"
-#include "SuffixTree.hpp"
+#include "aho_corasick.hpp"
+#include "suffix_tree.hpp"
 
 #include <regex>
 #include <string>
@@ -30,4 +30,4 @@ public:
     }
 };
 
-#endif //STRSET_HPP
+#endif //STR_SET_HPP

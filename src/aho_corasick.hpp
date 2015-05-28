@@ -2,8 +2,8 @@
 // Distributed under the terms of the MIT License.
 
 
-#ifndef AHOCORASICK_HPP
-#define AHOCORASICK_HPP
+#ifndef AHO_CORASICK_HPP
+#define AHO_CORASICK_HPP
 
 #include <map>
 #include <string>
@@ -45,4 +45,4 @@ public:
     bool occurre(std::string const &) const;
 };
 
-#endif //AHOCORASICK_HPP
+#endif //AHO_CORASICK_HPP

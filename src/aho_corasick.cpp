@@ -2,7 +2,7 @@
 // Distributed under the terms of the MIT License.
 
 
-#include "AhoCorasick.hpp"
+#include "aho_corasick.hpp"
 
 
 AhoCorasick::AhoCorasick(std::vector<std::string> const &patterns) {

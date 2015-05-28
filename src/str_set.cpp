@@ -2,7 +2,7 @@
 // Distributed under the terms of the MIT License.
 
 
-#include "StrSet.hpp"
+#include "str_set.hpp"
 
 
 std::regex const StrSet::word_regex_("[\\абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ-]+");

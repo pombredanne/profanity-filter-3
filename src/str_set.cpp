@@ -5,20 +5,20 @@
 #include "str_set.hpp"
 
 
-std::regex const StrSet::word_regex_("[\\абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ-]+");
+std::regex const StrSet::word_regex_("[абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ-]+");
 
 StrSet::StrSet(std::string const &get_str, bool complex_analysis) : complex_(complex_analysis) {
     std::string str = get_str;
-    std::vector<std::string> words;
+    std::vector<std::string> norm_words;
     std::smatch words_match;
 
     while (std::regex_search(str, words_match, word_regex_)) {
-        words.push_back(words_match.str());
+        norm_words.push_back(" " + words_match.str() + " ");
         suffix_trees_.push_back(SuffixTree(words_match.str()));
         str = words_match.suffix().str();
     }
 
-    trie_ = AhoCorasick(words);
+    trie_ = AhoCorasick(norm_words);
 }
 
 bool StrSet::check_occurrence(boost::python::list const &get_words) const {
@@ -34,7 +34,7 @@ bool StrSet::check_occurrence(boost::python::list const &get_words) const {
         all_words += word + " ";
     }
 
-    if (trie_.occurre(all_words)) {
+    if (trie_.occur(all_words)) {
         return true;
     }
 

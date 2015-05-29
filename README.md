@@ -19,6 +19,18 @@ cd profanity-filter
 python3 setup.py install
 ```
 
+Or if you have issues with boost-python:
+```
+python3 setup.py install --with-python
+```
+
+For OS X and Homebrew users:
+```boost``` package is not enough, you need
+
+```
+brew install boost-python --with-python3
+```
+
 ### Usage
 ```
 usage: profanity-filter [-h] [--type [{corpus,text}]] [--stoplist STOPLIST] input output

@@ -15,6 +15,17 @@ AhoCorasick::AhoCorasick(std::vector<std::string> const &patterns) : root_(new T
     proceed_aho_corasick_();
 }
 
+AhoCorasick::~AhoCorasick() {
+    delete_node_(root_);
+}
+
+void AhoCorasick::delete_node_(AhoCorasick::TrieNode *node) {
+    for (auto link : node->links) {
+        delete_node_(link.second);
+    }
+    delete node;
+}
+
 void AhoCorasick::add_pattern_(std::string const &pattern) {
     TrieNode *curr = root_;
     for (char ch : pattern) {

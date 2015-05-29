@@ -31,3 +31,4 @@ class UIProgressBar:
 
     def finish(self):
         self.progress_bar.finish()
+        self.value = 0

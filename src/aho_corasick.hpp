@@ -1,3 +1,8 @@
+/**
+ * Set of string with a quick check on the occurrence of a set of words
+ * implemented via Aho-Corasick algorithm.
+ */
+
 // Copyright (c) Timur Iskhakov.
 // Distributed under the terms of the MIT License.
 
@@ -28,6 +33,10 @@ class AhoCorasick {
         }
     };
 
+    /*
+     * The root of the trie.
+     * fail is linked to NULL.
+     */
     TrieNode *root_;
 
     void delete_node_(TrieNode *);

@@ -7,6 +7,13 @@
 
 std::regex const StrSet::word_regex_("[абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ-]+");
 
+/**
+ * A constructor.
+ * Make a set of strings.
+ *
+ * @param get_str String containing words
+ * @param complex_analysis True for checking for similarities
+ */
 StrSet::StrSet(std::string const &get_str, bool complex_analysis) : complex_(complex_analysis) {
     std::string str = get_str;
     std::vector<std::string> norm_words;
@@ -21,6 +28,10 @@ StrSet::StrSet(std::string const &get_str, bool complex_analysis) : complex_(com
     trie_ = AhoCorasick(norm_words);
 }
 
+/**
+ * Checks occurrence or similarity in the set.
+ * @param get_words List of words
+ */
 bool StrSet::check_occurrence(boost::python::list const &get_words) const {
     boost::python::ssize_t len = boost::python::len(get_words);
     std::vector<std::string> words(len);

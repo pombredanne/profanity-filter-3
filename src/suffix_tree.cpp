@@ -5,10 +5,16 @@
 #include "suffix_tree.hpp"
 
 
+/**
+ * A constructor.
+ */
 SuffixTree::SuffixTree(std::string const &str) {
 
 }
 
-bool SuffixTree::similar(SuffixTree const &tree, SuffixTree const &suffixTree) {
+/**
+ * Establishes whether two suffix trees are similar.
+ */
+bool SuffixTree::similar(SuffixTree const &first, SuffixTree const &second) {
     return false;
 }

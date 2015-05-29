@@ -22,7 +22,7 @@ python3 setup.py install
 
 **Or if you have issues with boost-python:**
 ```
-python3 setup.py install --with-python
+python3 setup.py install --with-boost
 ```
 
 <br>

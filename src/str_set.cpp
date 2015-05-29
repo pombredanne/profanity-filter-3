@@ -16,16 +16,13 @@ std::regex const StrSet::word_regex_("[абвгдеёжзийклмнопрст�
  */
 StrSet::StrSet(std::string const &get_str, bool complex_analysis) : complex_(complex_analysis) {
     std::string str = get_str;
-    std::vector<std::string> norm_words;
     std::smatch words_match;
 
     while (std::regex_search(str, words_match, word_regex_)) {
-        norm_words.push_back(" " + words_match.str() + " ");
-        suffix_trees_.push_back(SuffixTree(words_match.str()));
+    trie_.add_pattern(" " + words_match.str() + " ");
+        suffix_trees_.emplace_back(SuffixTree(words_match.str()));
         str = words_match.suffix().str();
     }
-
-    trie_ = AhoCorasick(norm_words);
 }
 
 /**

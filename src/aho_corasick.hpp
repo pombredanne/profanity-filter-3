@@ -40,16 +40,14 @@ class AhoCorasick {
     TrieNode *root_;
 
     void delete_node_(TrieNode *);
-    void add_pattern_(std::string const &);
-    void proceed_aho_corasick_();
     TrieNode const * step_(TrieNode const *, char) const;
 
 public:
     AhoCorasick() : root_(new TrieNode(nullptr)) {}
-    AhoCorasick(std::vector<std::string> const &);
-
     ~AhoCorasick();
 
+    void add_pattern(std::string const &);
+    void proceed_aho_corasick();
     bool occur(std::string const &) const;
 };
 

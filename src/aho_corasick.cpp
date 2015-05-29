@@ -8,18 +8,6 @@
 
 
 /**
- * A constructor.
- * Makes the trie.
- */
-AhoCorasick::AhoCorasick(std::vector<std::string> const &patterns) : root_(new TrieNode(nullptr)) {
-    for (auto const &pattern : patterns) {
-        add_pattern_(pattern);
-    }
-
-    proceed_aho_corasick_();
-}
-
-/**
  * A destructor.
  */
 AhoCorasick::~AhoCorasick() {
@@ -43,7 +31,7 @@ void AhoCorasick::delete_node_(AhoCorasick::TrieNode *node) {
  *
  * @param pattern The pattern to add
  */
-void AhoCorasick::add_pattern_(std::string const &pattern) {
+void AhoCorasick::add_pattern(std::string const &pattern) {
     TrieNode *curr = root_;
     for (char ch : pattern) {
         TrieNode *child = curr->get_link(ch);
@@ -59,7 +47,7 @@ void AhoCorasick::add_pattern_(std::string const &pattern) {
 /**
  * Initialises fail links via Aho-Corasick algorithm.
  */
-void AhoCorasick::proceed_aho_corasick_() {
+void AhoCorasick::proceed_aho_corasick() {
     std::queue<TrieNode *> queue;
     queue.push(root_);
 

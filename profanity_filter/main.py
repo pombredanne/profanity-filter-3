@@ -7,10 +7,10 @@ import os.path
 import sys
 
 
-from ui_progress_bar import UIProgressBar
-from str_set import StrSet
-from corpus import Corpus
-from raw_text import RawText
+from profanity_filter.ui_progress_bar import UIProgressBar
+from profanity_filter.str_set import StrSet
+from profanity_filter.corpus import Corpus
+from profanity_filter.raw_text import RawText
 
 
 def __file_extension(filename):
@@ -59,8 +59,8 @@ def main(argv):
 
     print('Preparing...', end='\r')
 
-    stop_set = StrSet(args.stoplist.read())
     run_corpus = (__file_extension(args.input[0].name) == 'vert' and args.type != 'text') or args.type == 'corpus'
+    stop_set = StrSet(args.stoplist.read(), not run_corpus)
     progress_bar = UIProgressBar('Corpus' if run_corpus else 'Text', __count_lines(args.input[0]))
 
     progress_bar.start()

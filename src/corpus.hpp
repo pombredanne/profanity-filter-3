@@ -122,11 +122,6 @@ class Corpus {
     void pick_eol_();
 
     /**
-     * Read input to newline character (doesn't checks file end).
-     */
-    void pick_eol_unsecure_();
-
-    /**
      * Get next symbol from input.
      */
     unsigned char get_next_symbol_();

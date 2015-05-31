@@ -23,10 +23,6 @@ void Corpus::pick_eol_() {
     } while (ch != '\n' && ch);
 }
 
-void Corpus::pick_eol_unsecure_() {
-    while (get_next_symbol_() != '\n');
-}
-
 unsigned char Corpus::get_next_symbol_() {
     if (input_eof_()) {
         return 0;
@@ -81,14 +77,29 @@ void Corpus::load_buffer_() {
     size_t read_size = fread(input_buffer_ + pos_, 1, BUFFER_SIZE, fin_);
     buffer_loaded_size_ = pos_ + read_size;
     input_loaded_size_ += read_size;
+
+    if (read_size != BUFFER_SIZE && input_loaded_size_ != input_file_size_) {
+        throw CorpusException("Read error");
+    }
 }
 
 std::string Corpus::proceed_word_() {
-    size_t hyphen_pos = pos_;
-    while (input_buffer_[--hyphen_pos] != '-');
-    size_t space_pos = hyphen_pos;
-    while (input_buffer_[space_pos] != ' ' && input_buffer_[space_pos] != '\t' && input_buffer_[space_pos] != '\n') {
+
+    size_t hyphen_pos = pos_ - 1;
+    while (hyphen_pos >= last_write_pos_ && input_buffer_[hyphen_pos] != '-') {
+        --hyphen_pos;
+    }
+    size_t space_pos = hyphen_pos - 1;
+    while (space_pos >= last_write_pos_ &&
+           input_buffer_[space_pos] != ' ' &&
+           input_buffer_[space_pos] != '\t' &&
+           input_buffer_[space_pos] != '\n')
+    {
         --space_pos;
+    }
+
+    if (space_pos < last_write_pos_) {
+        throw CorpusException("Corpus is broken");
     }
 
     input_buffer_[hyphen_pos] = 0;
@@ -100,24 +111,26 @@ std::string Corpus::proceed_word_() {
 bool Corpus::proceed_sentence_() {
     std::vector<std::string> words;
 
-    for (;;) {
+    while (!input_eof_()) {
         unsigned char first = get_next_symbol_();
 
         // Cyrillic letter
         if (first == 208) {
-            pick_eol_unsecure_();
+            pick_eol_();
             words.push_back(proceed_word_());
         } else if (first == '<' &&
                    get_next_symbol_() == '/' &&
                    get_next_symbol_() == 's' &&
                    get_next_symbol_() == '>')
         {
-            pick_eol_unsecure_();
+            pick_eol_();
             return !stop_set_.check_occurrence(words);
         } else {
-            pick_eol_unsecure_();
+            pick_eol_();
         }
     }
+
+    throw CorpusException("Corpus is broken");
 }
 
 void Corpus::proceed_xml_() {
@@ -126,7 +139,7 @@ void Corpus::proceed_xml_() {
             get_next_symbol_() == 's' &&
             get_next_symbol_() == '>')
         {
-            pick_eol_unsecure_();
+            pick_eol_();
             if (proceed_sentence_()) {
                 write_buffer_();
             } else {

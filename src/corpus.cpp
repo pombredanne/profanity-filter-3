@@ -114,8 +114,8 @@ bool Corpus::proceed_sentence_() {
     while (!input_eof_()) {
         unsigned char first = get_next_symbol_();
 
-        // Cyrillic letter
-        if (first == 208) {
+        // Cyrillic letter UTF-8
+        if (first == 208 || first == 209) {
             pick_eol_();
             words.push_back(proceed_word_());
         } else if (first == '<' &&
@@ -151,6 +151,8 @@ void Corpus::proceed_xml_() {
         }
     }
 }
+
+#include <sys/stat.h>
 
 void Corpus::proceed() {
     if (stop_set_.empty()) {

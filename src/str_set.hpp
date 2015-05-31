@@ -9,9 +9,15 @@
 #ifndef STR_SET_HPP
 #define STR_SET_HPP
 
+#ifdef BOOST_PYTHON
 #include <boost/python.hpp>
+#endif //BOOST_PYTHON
+
 #include "aho_corasick.hpp"
+
+#ifdef SIMILARITIES_ANALYSIS
 #include "suffix_tree.hpp"
+#endif //SIMILARITIES_ANALYSIS
 
 #include <regex>
 #include <string>
@@ -24,24 +30,50 @@ class StrSet {
      */
     static std::regex const word_regex_;
 
-    /**
-     * Suffix tree for each word in the set.
+    /*
+     * Number of unique words in the set.
      */
-    std::vector<SuffixTree> suffix_trees_;
+    size_t words_count_;
 
     /**
      * An AhoCorasick trie for quick check.
      */
     AhoCorasick trie_;
 
+#ifdef SIMILARITIES_ANALYSIS
+
     /**
-     * Designates proceeding a similarity check
+     * Suffix tree for each word in the set.
      */
-    bool complex_;
+    std::vector<SuffixTree> suffix_trees_;
+
+#endif //SIMILARITIES_ANALYSIS
 
 public:
-    StrSet(std::string const &, bool);
-    bool check_occurrence(boost::python::list const &) const;
+    /**
+     * A constructor.
+     * Make a set of strings.
+     *
+     * @param get_str String containing words
+     * @param complex_analysis True for checking for similarities
+     */
+    StrSet(std::string const &);
+
+    /**
+     * Checks occurrence or similarity in the set.
+     * @param get_words Vector of words
+     */
+    bool check_occurrence(std::vector<std::string> const &) const;
+
+#ifdef BOOST_PYTHON
+
+    /**
+     * Checks occurrence or similarity in the set.
+     * @param get_words List of words
+     */
+    bool check_occurrence_python(boost::python::list const &) const;
+
+#endif //BOOST_PYTHON
 
     /**
      * Establishes whether the set is empty.
@@ -49,7 +81,7 @@ public:
      * @return True if the set is empty
      */
     bool empty() const {
-        return suffix_trees_.empty();
+        return !words_count_;
     }
 };
 

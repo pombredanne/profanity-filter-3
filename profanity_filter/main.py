@@ -6,18 +6,27 @@ import argparse
 import os.path
 import sys
 
-
-from profanity_filter.ui_progress_bar import UIProgressBar
-from profanity_filter.str_set import StrSet
 from profanity_filter.corpus import Corpus
+from profanity_filter.str_set import StrSet
 from profanity_filter.raw_text import RawText
+from profanity_filter.ui_progress_bar import UIProgressBar
 
 
 def __file_extension(filename):
+    """Get the file extension.
+
+    :param filename: File path
+    :return: File extension
+    """
     return os.path.splitext(filename)[1][1:]
 
 
 def __count_lines(file):
+    """Count lines in the file.
+
+    :param file: Opened file (the pointer needs to be at the beginning)
+    :return: Number of lines
+    """
     lines = 0
     buf_size = 1024 * 1024
     read_f = file.read
@@ -60,11 +69,18 @@ def main(argv):
     print('Preparing...', end='\r')
 
     run_corpus = (__file_extension(args.input[0].name) == 'vert' and args.type != 'text') or args.type == 'corpus'
-    stop_set = StrSet(args.stoplist.read(), not run_corpus)
-    progress_bar = UIProgressBar('Corpus' if run_corpus else 'Text', __count_lines(args.input[0]))
+    progress_bar = UIProgressBar('Corpus' if run_corpus else 'Text')
 
-    progress_bar.start()
-    (Corpus if run_corpus else RawText)(args.input[0], args.output[0], stop_set, progress_bar).proceed()
+    if run_corpus:
+        args.input[0].close()
+        args.output[0].close()
+
+        Corpus(args.input[0].name, args.output[0].name, args.stoplist.read(), progress_bar).proceed()
+    else:
+        progress_bar.init(__count_lines(args.input[0]))
+        stop_set = StrSet(args.stoplist.read())
+        RawText(args.input[0], args.output[0], stop_set, progress_bar).proceed()
+
     progress_bar.finish()
 
 

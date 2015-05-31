@@ -41,7 +41,7 @@ if len(sys.argv) != 1 and '-h' not in sys.argv and '--help' not in sys.argv and 
 
 install_reqs = pip.req.parse_requirements('requirements.txt', session=pip.download.PipSession())
 
-compile_args = ['-std=c++11']
+compile_args = ['-DBOOST_PYTHON', '-std=c++11']
 library_dirs = []
 if sys.platform == 'darwin':
     compile_args.append('-stdlib=libc++')
@@ -128,13 +128,28 @@ setuptools.setup(
     description=metadata.description,
     license=metadata.license,
     url=metadata.url,
-    ext_modules=[setuptools.Extension(
-        metadata.package + '.str_set',
-        ['src/package.cpp', 'src/aho_corasick.cpp', 'src/suffix_tree.cpp', 'src/str_set.cpp'],
-        libraries=['boost_python3'] if not args.with_boost else [],
-        extra_compile_args=compile_args,
-        library_dirs=library_dirs,
-    )],
+    ext_modules=[
+        setuptools.Extension(
+            metadata.package + '.str_set',
+            ['src/str_set_module.cpp',
+             'src/aho_corasick.cpp',
+             'src/suffix_tree.cpp',
+             'src/str_set.cpp'],
+            libraries=['boost_python3'] if not args.with_boost else [],
+            extra_compile_args=compile_args + ['-DSIMILARITIES_ANALYSIS'],
+            library_dirs=library_dirs,
+        ),
+        setuptools.Extension(
+            metadata.package + '.corpus',
+            ['src/corpus_module.cpp',
+             'src/corpus.cpp',
+             'src/aho_corasick.cpp',
+             'src/str_set.cpp'],
+            libraries=['boost_python3'] if not args.with_boost else [],
+            extra_compile_args=compile_args,
+            library_dirs=library_dirs,
+        ),
+    ],
     include_package_data=True,
     packages=[metadata.package],
     entry_points={

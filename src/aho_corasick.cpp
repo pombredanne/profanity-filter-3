@@ -7,18 +7,10 @@
 #include <queue>
 
 
-/**
- * A destructor.
- */
 AhoCorasick::~AhoCorasick() {
     delete_node_(root_);
 }
 
-/**
- * Recursively deletes a node and its children.
- *
- * @param node The node to delete
- */
 void AhoCorasick::delete_node_(AhoCorasick::TrieNode *node) {
     for (auto link : node->links) {
         delete_node_(link.second);
@@ -26,12 +18,18 @@ void AhoCorasick::delete_node_(AhoCorasick::TrieNode *node) {
     delete node;
 }
 
-/**
- * Adds a pattern to the trie.
- *
- * @param pattern The pattern to add
- */
-void AhoCorasick::add_pattern(std::string const &pattern) {
+AhoCorasick::TrieNode const * AhoCorasick::step_(TrieNode const *node, char ch) const {
+    while (node) {
+        TrieNode const *candidate = node->get_link(ch);
+        if (candidate) {
+            return candidate;
+        }
+        node = node->fail;
+    }
+    return root_;
+}
+
+bool AhoCorasick::add_pattern(std::string const &pattern) {
     TrieNode *curr = root_;
     for (char ch : pattern) {
         TrieNode *child = curr->get_link(ch);
@@ -41,12 +39,12 @@ void AhoCorasick::add_pattern(std::string const &pattern) {
         }
         curr = child;
     }
+
+    bool unique = !curr->term;
     curr->term = true;
+    return unique;
 }
 
-/**
- * Initialises fail links via Aho-Corasick algorithm.
- */
 void AhoCorasick::proceed_aho_corasick() {
     std::queue<TrieNode *> queue;
     queue.push(root_);
@@ -74,30 +72,6 @@ void AhoCorasick::proceed_aho_corasick() {
     }
 }
 
-/**
- * Gets next node for a char in the trie.
- *
- * @param node Current node
- * @param ch The char to proceed
- * @return Next node
- */
-AhoCorasick::TrieNode const * AhoCorasick::step_(TrieNode const *node, char ch) const {
-    while (node) {
-        TrieNode const *candidate = node->get_link(ch);
-        if (candidate) {
-            return candidate;
-        }
-        node = node->fail;
-    }
-    return root_;
-}
-
-/**
- * Checks an occurrence of a substring of a string in the set.
- *
- * @param str String to find
- * @return True if a substring of str is in the set.
- */
 bool AhoCorasick::occur(std::string const &str) const {
     TrieNode const *node = root_;
     for (char ch : str) {

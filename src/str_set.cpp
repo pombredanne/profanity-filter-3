@@ -7,29 +7,27 @@
 
 std::regex const StrSet::word_regex_("[абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ-]+");
 
-/**
- * A constructor.
- * Make a set of strings.
- *
- * @param get_str String containing words
- * @param complex_analysis True for checking for similarities
- */
-StrSet::StrSet(std::string const &get_str, bool complex_analysis) : complex_(complex_analysis) {
+StrSet::StrSet(std::string const &get_str) : words_count_(0) {
     std::string str = get_str;
     std::smatch words_match;
 
     while (std::regex_search(str, words_match, word_regex_)) {
-    trie_.add_pattern(" " + words_match.str() + " ");
-        suffix_trees_.emplace_back(SuffixTree(words_match.str()));
+        if (trie_.add_pattern(" " + words_match.str() + " ")) {
+            ++words_count_;
+
+#ifdef SIMILARITIES_ANALYSIS
+            suffix_trees_.emplace_back(SuffixTree(words_match.str()));
+#endif //SIMILARITIES_ANALYSIS
+
+        }
+
         str = words_match.suffix().str();
     }
 }
 
-/**
- * Checks occurrence or similarity in the set.
- * @param get_words List of words
- */
-bool StrSet::check_occurrence(boost::python::list const &get_words) const {
+#ifdef BOOST_PYTHON
+
+bool StrSet::check_occurrence_python(boost::python::list const &get_words) const {
     boost::python::ssize_t len = boost::python::len(get_words);
     std::vector<std::string> words(len);
 
@@ -37,6 +35,12 @@ bool StrSet::check_occurrence(boost::python::list const &get_words) const {
         words[i] = boost::python::extract<std::string>(get_words[i]);
     }
 
+    return check_occurrence(words);
+}
+
+#endif //BOOST_PYTHON
+
+bool StrSet::check_occurrence(std::vector<std::string> const &words) const {
     std::string all_words = " ";
     for (auto const &word : words) {
         all_words += word + " ";
@@ -46,15 +50,17 @@ bool StrSet::check_occurrence(boost::python::list const &get_words) const {
         return true;
     }
 
-    if (complex_) {
-        for (auto const &word : words) {
-            for (auto const &tree : suffix_trees_) {
-                if (SuffixTree::similar(SuffixTree(word), tree)) {
-                    return true;
-                }
+#ifdef SIMILARITIES_ANALYSIS
+
+    for (auto const &word : words) {
+        for (auto const &tree : suffix_trees_) {
+            if (SuffixTree::similar(SuffixTree(word), tree)) {
+                return true;
             }
         }
     }
+
+#endif //SIMILARITIES_ANALYSIS
 
     return false;
 }

@@ -90,6 +90,6 @@ class RawText:
         """Copy text without profanity sentences."""
 
         if self.stop_set.empty():
-            print('Stopset is empty!')
+            print('Stoplist is empty!')
 
         self.__proceed_text(self.input_stream, self.output_stream)

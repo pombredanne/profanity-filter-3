@@ -119,15 +119,16 @@ if args.with_boost:
 
     os.chdir('..')
 
-
 setuptools.setup(
     name=metadata.project,
     version=metadata.version,
     author=metadata.authors_string,
     author_email=metadata.emails[0],
     description=metadata.description,
+    long_description=metadata.long_description,
     license=metadata.license,
     url=metadata.url,
+    download_url=metadata.url + '/tarball/' + metadata.version,
     ext_modules=[
         setuptools.Extension(
             metadata.package + '.str_set',
@@ -162,12 +163,12 @@ setuptools.setup(
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: Russian',
-        'Programming Language :: C++',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Scientific/Engineering :: Information Analysis',
         'Topic :: Text Processing :: Linguistic',
+        'Topic :: Utilities',
     ],
 )

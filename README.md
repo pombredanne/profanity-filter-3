@@ -3,7 +3,7 @@ Cleaning the text of profanity.
 
 Clearing text or texts corpus in Russian of obscene vocabulary.
 
-Can be used with any set of stopwords; words are matched by lemmatization (using <a href="https://github.com/kmike/pymorphy2">pymorphy2</a>) and similarities analysis.
+Can be used with any set of stopwords; words are matched by lemmatisation (using <a href="https://github.com/kmike/pymorphy2">pymorphy2</a>) and similarities analysis.
 <hr><br>
 
 ### Requirements

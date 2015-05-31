@@ -4,8 +4,9 @@
 
 #include "corpus.hpp"
 
-#include <iostream>
 #include <cstdio>
+#include <cstring>
+#include <iostream>
 
 
 size_t const Corpus::BUFFER_SIZE = 1024 * 1024;

@@ -152,8 +152,6 @@ void Corpus::proceed_xml_() {
     }
 }
 
-#include <sys/stat.h>
-
 void Corpus::proceed() {
     if (stop_set_.empty()) {
         std::cout << "Stoplist is empty!\n";

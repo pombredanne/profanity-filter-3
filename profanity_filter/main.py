@@ -18,6 +18,7 @@ def __file_extension(filename):
     :param filename: File path
     :return: File extension
     """
+
     return os.path.splitext(filename)[1][1:]
 
 
@@ -27,6 +28,7 @@ def __count_lines(file):
     :param file: Opened file (the pointer needs to be at the beginning)
     :return: Number of lines
     """
+
     lines = 0
     buf_size = 1024 * 1024
     read_f = file.read
@@ -86,6 +88,7 @@ def main(argv):
 
 def entry_point():
     """Zero-argument entry point for use with setuptools/distribute."""
+
     raise SystemExit(main(sys.argv[1:]))
 
 

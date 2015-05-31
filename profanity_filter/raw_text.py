@@ -27,17 +27,21 @@ class RawText:
         self.stops = ('.', '!', '?', '…')
 
     def __normalize(self, token):
-        # Yeah, this is fun
-        if token[:4] == 'пидо':
-            return 'пидор'
+        """Normalize the token.
 
-        try:
-            gram_info = self.morph.parse(token)
-            return gram_info[0].normal_form
-        except:
-            return token
+        :param token: Token containing the word
+        :return: The word infinitive
+        """
+
+        return self.morph.parse(token)[0].normal_form
 
     def __proceed_sentence(self, sentence):
+        """Proceed the sentence.
+
+        :param sentence: The sentence
+        :return: Absence of obscene vocabulary
+        """
+
         words = []
         curr_word = ''
 
@@ -51,6 +55,14 @@ class RawText:
         return not self.stop_set.check_occurrence(words)
 
     def __get_stop_pos(self, part):
+        """Find a sentence end position.
+
+        :param part: Part of the text
+        :return: A sentence end position or -1 if not found
+        """
+
+        # FIX ME
+
         pos = -1
         for ind, ch in enumerate(part):
             if ch in self.stops:
@@ -60,6 +72,13 @@ class RawText:
         return pos
 
     def __proceed_part(self, part, output_stream):
+        """Proceed text part.
+
+        :param part: Part of the text
+        :param output_stream: Output stream
+        :return: Remaining part of the text
+        """
+
         stop_pos = self.__get_stop_pos(part)
         while stop_pos != -1:
             start_pos = 0
@@ -76,6 +95,12 @@ class RawText:
         return part
 
     def __proceed_text(self, input_stream, output_stream):
+        """Proceed the text.
+
+        :param input_stream: Input stream
+        :param output_stream: Output stream
+        """
+
         collected_line = ''
         line = input_stream.readline()
 

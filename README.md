@@ -3,9 +3,10 @@ Cleaning the text of profanity.
 
 Clearing text or texts corpus in Russian of obscene vocabulary.
 
-Can be used with any set of stopwords; words are matched by lemmatisation (using <a href="https://github.com/kmike/pymorphy2">pymorphy2</a>) and similarities analysis.
-<hr><br>
+Can be used with any set of stopwords; words are matched by lemmatisation (using [pymorphy2](https://github.com/kmike/pymorphy2) and similarities analysis.
 
+
+---
 ### Requirements
 
   * Python 3.4+ **with headers**
@@ -20,21 +21,19 @@ cd profanity-filter
 python3 setup.py install
 ```
 
-**Or if you have issues with boost-python:**
-```
-python3 setup.py install --with-boost
-```
+##### Additional flags:
+* `--with-boost` If you have issues with boost-python.
+* `--no-corpus-check` If you are sure that your corpus is well-formatted. See the description below.
 
-<br>
 For OS X and Homebrew users:
 ```boost``` package is not enough, you need
 
 ```
 brew install boost-python --with-python3
 ```
-<hr><br>
 
 
+---
 ### Usage
 ```
 usage: profanity-filter [-h] [--type [{corpus,text}]] [--stoplist STOPLIST] input output
@@ -48,3 +47,20 @@ optional arguments:
   --type [{corpus,text}]    Input file type (vert is corpus by default)
   --stoplist STOPLIST       Custom stoplist file
 ```
+
+**Only UTF-8 encoding is supported.**
+
+
+---
+### Corpus structure
+
+To be written later.
+
+
+---
+### Texts similarities analysis
+
+To be written later.
+
+
+---

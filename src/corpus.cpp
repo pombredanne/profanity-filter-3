@@ -16,12 +16,22 @@ bool Corpus::input_eof_() const {
     return input_file_size_ == input_loaded_size_ && pos_ == buffer_loaded_size_;
 }
 
+#ifdef STRICT_FILE
+
+void Corpus::pick_eol_() {
+    while (get_next_symbol_() != '\n');
+}
+
+#else //STRICT_FILE
+
 void Corpus::pick_eol_() {
     unsigned char ch;
     do {
         ch = get_next_symbol_();
     } while (ch != '\n' && ch);
 }
+
+#endif //STRICT_FILE
 
 unsigned char Corpus::get_next_symbol_() {
     if (input_eof_()) {
@@ -85,25 +95,35 @@ void Corpus::load_buffer_() {
 
 std::string Corpus::proceed_word_() {
 
+#ifdef STRICT_FILE
+
+    size_t hyphen_pos = pos_;
+    while (input_buffer_[--hyphen_pos] != '-');
+    size_t sep_pos = hyphen_pos;
+    while (input_buffer_[--sep_pos] != '\t');
+
+#else //STRICT_FILE
+
     size_t hyphen_pos = pos_ - 1;
     while (hyphen_pos >= last_write_pos_ && input_buffer_[hyphen_pos] != '-') {
         --hyphen_pos;
     }
-    size_t space_pos = hyphen_pos - 1;
-    while (space_pos >= last_write_pos_ &&
-           input_buffer_[space_pos] != ' ' &&
-           input_buffer_[space_pos] != '\t' &&
-           input_buffer_[space_pos] != '\n')
+    size_t sep_pos = hyphen_pos - 1;
+    while (sep_pos >= last_write_pos_ &&
+           input_buffer_[sep_pos] != ' ' &&
+           input_buffer_[sep_pos] != '\t')
     {
-        --space_pos;
+        --sep_pos;
     }
 
-    if (space_pos < last_write_pos_) {
+    if (sep_pos < last_write_pos_) {
         throw CorpusException("Corpus is broken");
     }
 
+#endif //STRICT_FILE
+
     input_buffer_[hyphen_pos] = 0;
-    std::string word(reinterpret_cast<char *>(input_buffer_ + space_pos + 1));
+    std::string word(reinterpret_cast<char *>(input_buffer_ + sep_pos + 1));
     input_buffer_[hyphen_pos] = '-';
     return word;
 }

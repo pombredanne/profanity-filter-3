@@ -49,6 +49,7 @@ if sys.platform == 'darwin':
 
 argparser = argparse.ArgumentParser(add_help=False)
 argparser.add_argument('--with-boost', action='store_true', help='Download and use local boost')
+argparser.add_argument('--no-corpus-check', action='store_true', help='Don\'t check corpus structure')
 args, unknown = argparser.parse_known_args()
 sys.argv = [sys.argv[0]] + unknown
 
@@ -147,7 +148,7 @@ setuptools.setup(
              'src/aho_corasick.cpp',
              'src/str_set.cpp'],
             libraries=['boost_python3'] if not args.with_boost else [],
-            extra_compile_args=compile_args,
+            extra_compile_args=compile_args + (['-DSTRICT_FILE'] if args.no_corpus_check else []),
             library_dirs=library_dirs,
         ),
     ],

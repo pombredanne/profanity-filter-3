@@ -117,7 +117,7 @@ class Corpus {
     bool input_eof_() const;
 
     /**
-     * Read input to newline character (or the file end).
+     * Read input to newline character.
      */
     void pick_eol_();
 

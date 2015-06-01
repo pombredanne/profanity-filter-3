@@ -120,6 +120,7 @@ if args.with_boost:
 
     os.chdir('..')
 
+
 setuptools.setup(
     name=metadata.project,
     version=metadata.version,
@@ -167,7 +168,9 @@ setuptools.setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: Implementation :: CPython',
+        'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Scientific/Engineering :: Information Analysis',
         'Topic :: Text Processing :: Linguistic',
         'Topic :: Utilities',

@@ -3,7 +3,7 @@ Cleaning the text of profanity.
 
 Clearing text or texts corpus in Russian of obscene vocabulary.
 
-Can be used with any set of stopwords; words are matched by lemmatisation (using [pymorphy2](https://github.com/kmike/pymorphy2) and similarities analysis.
+Can be used with any set of stopwords; words are matched by lemmatisation (using [pymorphy2](https://github.com/kmike/pymorphy2)) and similarities analysis.
 
 
 ---
@@ -22,7 +22,7 @@ python3 setup.py install
 ```
 
 ##### Additional flags:
-* `--with-boost` If you have issues with boost-python.
+* `--with-boost` If you have issues with boost-python (sudo may be required).
 * `--no-corpus-check` If you are sure that your corpus is well-formatted. See the description below.
 
 For OS X and Homebrew users:

@@ -63,7 +63,7 @@ void Corpus::write_buffer_() {
         flush_output_();
     }
 
-    memcpy(output_buffer_ + output_buffer_pos_, input_buffer_, pos_ - last_write_pos_);
+    memcpy(output_buffer_ + output_buffer_pos_, input_buffer_ + last_write_pos_, pos_ - last_write_pos_);
     output_buffer_pos_ += pos_ - last_write_pos_;
     pass_buffer_();
 }

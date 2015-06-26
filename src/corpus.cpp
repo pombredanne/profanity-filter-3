@@ -10,7 +10,7 @@
 
 
 size_t const Corpus::BUFFER_SIZE = 1024 * 1024;
-size_t const Corpus::MAX_SENTENCE_LENGTH = 32 * 1024;
+size_t const Corpus::MAX_SENTENCE_LENGTH = 1024 * 1024;
 
 bool Corpus::input_eof_() const {
     return input_file_size_ == input_loaded_size_ && pos_ == buffer_loaded_size_;

@@ -95,12 +95,12 @@ class Corpus {
     /**
      * Input buffer.
      */
-    unsigned char input_buffer_[1024 * 1024 + 32 * 1024];
+    unsigned char input_buffer_[1024 * 1024 + 1024 * 1024];
 
     /**
      * Output buffer.
      */
-    unsigned char output_buffer_[1024 * 1024];
+    unsigned char output_buffer_[1024 * 1024 * 2];
 
 #ifdef BOOST_PYTHON
 

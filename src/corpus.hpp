@@ -201,7 +201,7 @@ public:
            std::string const &stop_list) :
             input_path_(input_path),
             output_path_(output_path),
-            stop_set_(stop_list),
+            stop_set_(stop_list)
     { }
 
 #endif //BOOST_PYTHON

@@ -58,13 +58,13 @@ sys.argv = [sys.argv[0]] + unknown
 if args.with_boost:
     print('Boost will be prepared now. It might take a while.')
 
-    compile_args.append('-Iboost_1_58_0')
+    compile_args.append('-Iboost_1_60_0')
     library_dirs.append('stage-python3/lib')
 
-    boost_url = 'https://downloads.sourceforge.net/project/boost/boost/1.58.0/boost_1_58_0.tar.bz2'
-    boost_name = 'boost_1_58_0.tar.bz2'
-    boost_md5 = 'b8839650e61e9c1c0a89f371dd475546'
-    boost_dir = 'boost_1_58_0'
+    boost_url = 'https://downloads.sourceforge.net/project/boost/boost/1.60.0/boost_1_60_0.tar.bz2'
+    boost_name = 'boost_1_60_0.tar.bz2'
+    boost_md5 = '65a840e1a0b13a558ff19eeb2c4f0cbe'
+    boost_dir = 'boost_1_60_0'
 
     if not (os.path.isfile(boost_name) and __md5_sum(boost_name) == boost_md5):
         print('Downloading', boost_name)
